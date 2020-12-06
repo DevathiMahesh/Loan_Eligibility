@@ -35,8 +35,8 @@ export default function Navbarcomp()
            <AppBar position="fixed">
                 <Toolbar className={classes.navstyles}>
                 
-                    <Typography variant="h6" className={classes.title}>
-                       Loans Bazaar
+                    <Typography variant="h6"   className={classes.title}>
+                       Pothani Financial Services
                     </Typography>
                     <span className={classes.toolbarButtons}>
                         <a href="#home" className={classes.toolbarButtons}>

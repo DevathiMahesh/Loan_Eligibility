@@ -127,6 +127,9 @@ export default function Home() {
       showLoader(true);
       setTimeout(()=>{showLoader(false);setShowSnack(true);},2000);
     }
+    const dummy = ()=>{
+
+    }
     const validate = ()=>{
        if(user.name==="" || user.mobile==="" || user.email==="" || user.loantype==="" || user.company==="")
         return false 
@@ -191,7 +194,7 @@ export default function Home() {
                       </Grid>
                       <Grid item xs={4} >
                         <h4>Need Instant Loan?</h4>
-                      <form onSubmit={(event)=>{event.preventDefault()}}>
+                      <form onSubmit={(event)=>{event.preventDefault();dummy();}}>
                       <TextField
                           required
                           id="outlined-required"
@@ -388,7 +391,7 @@ export default function Home() {
                       {load?<div style={{width:"100",height:"100",position:"fixed",top:"40%",left:"77%"}}><CircularProgress color="secondary" size={70} /></div>:null}
                       <Snackbar open={showSnack} autoHideDuration={6000}  anchorOrigin={{ vertical, horizontal }} onClose={()=>setShowSnack(false)}>
                           <Alert onClose={()=>setShowSnack(false)} severity="success">
-                            Your Application is Successfully submitted.<br/>
+                            Your Application is Submitted Successfully .<br/>
                             Our Team will get back to you in 24 hours.
                           </Alert>
                      </Snackbar>
@@ -413,11 +416,11 @@ export default function Home() {
                   </Grid>
                  </div>
             </div>
-            {/* <div className={classes.root} id="contact">
+            <div className={classes.root} id="contact">
             <div style={{height:"600px",backgroundColor:"#E9CFC9"}}>
 
             </div>
-            </div> */}
+            </div>
             <div className={classes.about} id="about">
             <div style={{height:"300px",backgroundColor:"#142F3A",color:"white"}}>
                 <Grid container >

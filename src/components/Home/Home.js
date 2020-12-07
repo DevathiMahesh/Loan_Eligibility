@@ -125,7 +125,33 @@ export default function Home() {
     
       console.log(user)
       showLoader(true);
-      setTimeout(()=>{showLoader(false);setShowSnack(true);},2000);
+      setTimeout(()=>{
+        showLoader(false);
+        setShowSnack(true);
+        setUser( {
+          name:"",
+          mobile:"",
+          email:"",
+          company:"",
+          salary:0,
+          loantype:"",
+          expenses:0,
+          loanamount:0,
+          eligibleamount:0
+        }),
+        setErrors(
+          {
+            name:"",
+            mobile:"",
+            email:"",
+            company:"",
+            salary:"",
+            loantype:"",
+            expenses:"",
+            loanamount:""
+          }
+        )
+      },2000);
     }
     const dummy = ()=>{
 

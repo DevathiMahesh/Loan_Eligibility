@@ -38,11 +38,11 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
+        <Button size="small" href="#about" color="primary">
+         Contact
         </Button>
-        <Button size="small" color="primary">
-          Learn More
+        <Button size="small" color="primary" onClick={()=>props.setOpen(true)}>
+        Check Eligibility
         </Button>
       </CardActions>
     </Card>

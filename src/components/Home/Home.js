@@ -524,6 +524,9 @@ export default function Home() {
                     <Grid item xs={12} md={6}>
                        <div style={{margin:"40px"}}>
                           <h4>About Company Profile:</h4>
+                          <br/>
+                          <img src="/pothani.png" alt="Pothani infotech solutions"/> 
+                          <br/><br/>
                           <p>
                           Pothani Solutions isfor small enterpreneurs. We are a one stop service provider that offers facilities such
                            as Housing Loans, Personal Loans, Business Loans, Loan against Property, Loan against Shares, etc. 

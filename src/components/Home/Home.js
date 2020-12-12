@@ -213,12 +213,12 @@ export default function Home() {
     {
       src: "/ploan.jpg",
       title: "Personal Loan",
-      description:"A personal loan allows you to borrow money to pay for personal expenses and then repay those funds over time. "
+      description:"A Personal Loan is a type of unsecured loan and helps to meet one's current financial needs. "
     },
     {
       src: "/hloan.jpg",
       title: "Home Loan",
-      description:"A house loan or home loan simply means a sum of money borrowed from a financial institution or bank to purchase a house."
+      description:"We can choose variety of home loans based on their interest rates and other buyers-friendly features. We can avail home loans based on our existing financial capabilities or worth and repay it over a period of time.Interest Rates offered on home loans can be either fixed or floating."
     },
     {
       src: "/bloan.png",
@@ -523,12 +523,11 @@ export default function Home() {
                 <Grid container >
                     <Grid item xs={12} md={6}>
                        <div style={{margin:"40px"}}>
-                          <h4>About Us:</h4>
+                          <h4>About Company Profile:</h4>
                           <p>
-                            A personal loan allows you to borrow money to pay for personal expenses
-                             and then repay those funds over time. A personal loan allows you to
-                              borrow  money to pay for personal expenses and then repay those funds over time.
-                              and then repay those funds over time.
+                          Pothani Solutions isfor small enterpreneurs. We are a one stop service provider that offers facilities such
+                           as Housing Loans, Personal Loans, Business Loans, Loan against Property, Loan against Shares, etc. 
+                          We have tie ups with 40 leading Banks and NBFCs that offer competitive interest rates and terms of agreement.  
                             
                           </p>
                        </div>

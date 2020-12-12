@@ -41,9 +41,9 @@ export default function MediaCard(props) {
         <Button size="small" href="#about" color="primary">
          Contact
         </Button>
-        <Button size="small" color="primary" onClick={()=>props.setOpen(true)}>
+       {props.item.title!="Business Loan"? <Button size="small" color="primary" onClick={()=>props.setOpen(true)}>
         Check Eligibility
-        </Button>
+        </Button>:<span></span>}
       </CardActions>
     </Card>
   );

@@ -15,6 +15,7 @@ import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -25,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
      
       height:"300px"
+    },
+    partner: {
+      flexGrow: 1,
+      margin:"30px",
+      height:"500px"
     },
     paper: {
       
@@ -73,6 +79,12 @@ const useStyles = makeStyles((theme) => ({
     mbutton:{
       margin:theme.spacing(2),
 
+    },
+    imgcontainer:{
+      margin:"20px 0px 0px 130px"
+    },
+    img:{
+      margin:"30px"
     }
     
   }));
@@ -115,7 +127,7 @@ export default function Home() {
         email:"",
         company:"",
         salary:0,
-        loantype:"",
+        loantype:"Select Loan Type",
         expenses:0,
         loanamount:0,
         eligibleamount:0
@@ -134,11 +146,12 @@ export default function Home() {
           email:"",
           company:"",
           salary:0,
-          loantype:"",
+          loantype:"Select Loan Type",
           expenses:0,
           loanamount:0,
-          eligibleamount:0
-        }),
+          eligibleamount:0,
+          location:""
+        });
         setErrors(
           {
             name:"",
@@ -148,16 +161,18 @@ export default function Home() {
             salary:"",
             loantype:"",
             expenses:"",
-            loanamount:""
+            loanamount:"",
+            location:""
           }
         )
       },2000);
+      // window.location.reload();
     }
     const dummy = ()=>{
 
     }
     const validate = ()=>{
-       if(user.name==="" || user.mobile==="" || user.email==="" || user.loantype==="" || user.company==="")
+       if(user.name==="" || user.mobile==="" || user.email==="" || user.loantype==="Select Loan Type" || user.company==="")
         return false 
       return true
     }
@@ -226,6 +241,7 @@ export default function Home() {
                           id="outlined-required"
                           label="Name"
                           className={classes.textField}
+                          value = {user.name}
                           onChange={(event)=>setUser({...user,name:event.target.value})}
                           variant="outlined"
                           helperText={errors.name}
@@ -236,6 +252,7 @@ export default function Home() {
                           required
                           id="outlined-required"
                           label="Mobile Number"
+                          value={user.mobile}
                           onChange={(event)=>setUser({...user,mobile:event.target.value})}
                           className={classes.textField}
                           helperText={errors.mobile}
@@ -249,6 +266,7 @@ export default function Home() {
                           id="outlined-required"
                           onChange={(event)=>setUser({...user,email:event.target.value})}
                           label="Email"
+                          value={user.email}
                           className={classes.textField}
                           helperText={errors.email}
                           error={errors.email?true:false}
@@ -260,6 +278,7 @@ export default function Home() {
                           required
                           id="outlined-required"
                           label="Company"
+                          value={user.company}
                           onChange={(event)=>setUser({...user,company:event.target.value})}
                           className={classes.textField}
                           helperText={errors.company}
@@ -267,9 +286,21 @@ export default function Home() {
                           variant="outlined"
                           size="small"
                         />
+                           <TextField
+                          required
+                          id="outlined-required"
+                          label="Location"
+                          value={user.company}
+                          onChange={(event)=>setUser({...user,location:event.target.value})}
+                          className={classes.textField}
+                          helperText={errors.location}
+                          error={errors.location?true:false}
+                          variant="outlined"
+                          size="small"
+                        />
                        
-                         <FormControl variant="outlined" size="small"  className={classes.textField}>
-                          <InputLabel id="demo-simple-select-outlined-label">Loan Type *</InputLabel>
+                         <FormControl variant="outlined" size="small"  className={classes.textField} required>
+                          <InputLabel id="demo-simple-select-outlined-label">Loan Type </InputLabel>
                           <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -277,15 +308,18 @@ export default function Home() {
                             onChange={(event)=>setUser({...user,loantype:event.target.value})}
                             label="Loan Type"
                             size="small"
+                            native
+                            
                             required
 
                           >
                             {/* <MenuItem value="">
                               <em>None</em> */}
                             {/* </MenuItem> */}
-                            <MenuItem value={"Personal"}>Personal Loan</MenuItem>
-                            <MenuItem value={"Home"}>Home Loan</MenuItem>
-                            <MenuItem value={"Business"}>Business Loan</MenuItem>
+                            <option value={"loantype"}>Select Loan Type</option>
+                            <option value={"Personal"}>Personal Loan</option>
+                            <option value={"Home"}>Home Loan</option>
+                         
                           </Select>
                      </FormControl>
                         <Button variant="contained" color="primary"  type="submit"
@@ -316,9 +350,10 @@ export default function Home() {
                             <div className={classes.mpaper}>
                               <h3 style={{color:"brown",textAlign:"center",marginTop:"50px"}}>Loan Eligibility Calculator</h3>
                               <div style={{textAlign:'center',marginTop:"50px"}}>
-                              <FormControl variant="outlined" size="small"  className={classes.textField}>
+                              <form onSubmit={login}>
+                              <FormControl variant="outlined" size="small"  className={classes.textField} required>
 
-                                  <InputLabel id="demo-simple-select-outlined-label">Loan Type *</InputLabel>
+                                  <InputLabel id="demo-simple-select-outlined-label">Loan Type </InputLabel>
                                   <Select
                                     labelId="demo-simple-select-outlined-label"
                                     id="demo-simple-select-outlined"
@@ -326,18 +361,20 @@ export default function Home() {
                                     onChange={(event)=>setUser({...user,loantype:event.target.value})}
                                     label="Loan Type"
                                     size="small"
+                                    native
                                     required
 
                                   >
                                     {/* <MenuItem value="">
                                       <em>None</em> */}
                                     {/* </MenuItem> */}
-                                    <MenuItem value={"Personal"}>Personal Loan</MenuItem>
-                                    <MenuItem value={"Home"}>Home Loan</MenuItem>
-                                    <MenuItem value={"Business"}>Business Loan</MenuItem>
+                                    <option value={"loantype"}>Select Loan Type</option>
+                                    <option value={"Personal"}>Personal Loan</option>
+                                    <option value={"Home"}>Home Loan</option>
+                                  
                                   </Select>
                                     </FormControl>
-                                    <TextField
+                                    {/* <TextField
                                         required
                                         id="outlined-required"
                                         label="Loan Amount"
@@ -348,7 +385,7 @@ export default function Home() {
                                         error={errors.loanamount?true:false}
                                         variant="outlined"
                                         size="small"
-                                      />
+                                      /> */}
                                      {/* {errors.loanamount? <p style={{color:"red"}}>{errors.loanamount}</p>:null} */}
                                       <TextField
                                         required
@@ -356,14 +393,14 @@ export default function Home() {
                                         label="Net Salary Per Month"
                                         type="number"
                                         onChange={(event)=>{
-                                          let eligible = (event.target.value - user.expenses)*10;
+                                          let eligible = (event.target.value - user.expenses)*20;
                                           eligible = eligible>0?eligible:0;
                                           setUser({...user,salary:event.target.value,eligibleamount:eligible});
-                                          let temp = eligible<user.loanamount;
-                                          if(temp)
-                                            setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
-                                          else 
-                                          setErrors({...errors,loanamount:""})
+                                          // let temp = eligible<user.loanamount;
+                                          // if(temp)
+                                          //   setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
+                                          // else 
+                                          // setErrors({...errors,loanamount:""})
                                          }
                                          
                                         }
@@ -379,14 +416,14 @@ export default function Home() {
                                         label="Expenses Per Month"
                                         type="number"
                                         onChange={(event)=>{
-                                          let eligible = (user.salary - event.target.value)*10;
+                                          let eligible = (user.salary - event.target.value)*20;
                                           eligible = eligible>0?eligible:0;
                                           setUser({...user,expenses:event.target.value,eligibleamount:eligible})
-                                          let temp = eligible<user.loanamount;
-                                          if(temp)
-                                            setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
-                                            else 
-                                            setErrors({...errors,loanamount:""})
+                                          // let temp = eligible<user.loanamount;
+                                          // if(temp)
+                                          //   setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
+                                          //   else 
+                                          //   setErrors({...errors,loanamount:""})
                                           }
                                         }
                                         className={classes.textField}
@@ -409,6 +446,7 @@ export default function Home() {
                                           className={classes.mbutton}>
                                           Submit
                                       </Button>
+                                      </form>
                                 </div>
                             </div>
                           </Fade>
@@ -442,9 +480,30 @@ export default function Home() {
                   </Grid>
                  </div>
             </div>
-            <div className={classes.root} id="contact">
-            <div style={{height:"600px",backgroundColor:"#E9CFC9"}}>
-
+            <div className={classes.partner} id="contact">
+            <div style={{height:"450px",backgroundColor:"#300000",color:"white"}}>
+              <h3 style={{textAlign:"center",paddingTop:"20px",fontFamily:"Cursive"}}>Our Client Partners</h3><br/>
+              <Grid container >
+                    <Grid item xs={6} style={{borderRight:"1px solid white"}}>
+                        <h4 style={{textAlign:"center",paddingTop:"30px",fontFamily:"Cursive"}}>Personal Loan</h4>
+                        <div className={classes.imgcontainer}>
+                           <img src="/axis.png" alt="Axis Bank" width="200px" height="50px"  className={classes.img} style={{backgroundColor:"white"}}/>
+                           <img src="/icici.png" alt="ICICI Bank" width="200px" height="50px"  className={classes.img} style={{backgroundColor:"white"}}/>
+                        </div>
+                        <div className={classes.imgcontainer}>
+                        <img src="/hdfc.png" alt="HDFC Bank"  width="200px" height="50px" className={classes.img} style={{backgroundColor:"white",marginLeft:"150px"}}/>
+                      
+                        </div>
+                    </Grid>
+               
+                    <Grid item xs={6}>
+                        <h4 style={{textAlign:"center",paddingTop:"30px",fontFamily:"Cursive"}}>Home Loan</h4>
+                        <div className={classes.imgcontainer}>
+                           <img src="/sbi.png" alt="State Bank" width="200px" height="50px" className={classes.img} style={{backgroundColor:"white"}}/>
+                           <img src="/pnb.jpg" alt="Punjab National Bank" width="200px" height="50px" className={classes.img} style={{backgroundColor:"white"}}/>
+                        </div>
+                    </Grid>
+              </Grid>
             </div>
             </div>
             <div className={classes.about} id="about">

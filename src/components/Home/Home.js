@@ -3,7 +3,7 @@ import Navbarcomp from './Navbarcomp';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import {FormControl,InputLabel,Input,FormHelperText,TextField,Button} from '@material-ui/core'
+import {FormControl,InputLabel,Input,FormHelperText,TextField,Button,Container} from '@material-ui/core'
 import { InputText } from 'primereact/inputtext';
 import Carousel from 'react-material-ui-carousel'
 import MediaCard from './MediaCard'
@@ -21,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
       margin:"30px",
-      height:"650px"
+      height:"auto"
     },
     about: {
       flexGrow: 1,
      
-      height:"300px"
+      height:"auto"
     },
     partner: {
       flexGrow: 1,
       margin:"30px",
-      height:"500px"
+      height:"auto"
     },
     paper: {
       
@@ -58,9 +58,11 @@ const useStyles = makeStyles((theme) => ({
       marginLeft:"50px"
     },
     card:{
-    
-      marginTop:"100px",
-      marginLeft:"100px"
+     
+      marginTop:theme.spacing(5),
+      marginLeft:theme.spacing(8),
+      marginRight:theme.spacing(6),
+      marginBottom: theme.spacing(5),
 
     },
     modal: {
@@ -82,7 +84,8 @@ const useStyles = makeStyles((theme) => ({
 
     },
     imgcontainer:{
-      margin:"20px 0px 0px 130px"
+      marginLeft:theme.spacing(7),
+      textAlign:"center"
     },
     img:{
       margin:"30px"
@@ -231,10 +234,10 @@ export default function Home() {
             <Grid container  >
                 
                    
-                      <Grid item xs={7}>
+                      <Grid item md={7}  sm={12}>
                          
                              {/* <img src="/loan.jpg" alt="Need Loans??" /> */}
-                             <Carousel>
+                             <Carousel >
                               {
                                   items.map( (item, i) => <Item key={i} item={item} /> )
                               }
@@ -244,7 +247,7 @@ export default function Home() {
                       <Grid item xs={1}>
 
                       </Grid>
-                      <Grid item xs={4} >
+                      <Grid item md={4} xs={12}style={{textAlign:"center"}}>
                         <h4>Need Instant Loan?</h4>
                       <form onSubmit={(event)=>{event.preventDefault();dummy();}}>
                       <TextField
@@ -474,13 +477,13 @@ export default function Home() {
             </Grid>
            
             </div>
-            <div className={classes.root} id="services">
-                 <div style={{height:"600px",backgroundColor:"#fff8e7"}}>
-                 <Grid container >
+            <div className={classes.root} id="services" >
+                 {/* <div style={{height:"600px",backgroundColor:"#fff8e7"}}> */}
+                 <Grid container   style={{height:"auto",backgroundColor:"#fff8e7",textAlign:"center"}}>
                    {loancards.map(
                      (item,i)=>{
                        return(
-                                <Grid item xs={3} className={classes.card}>
+                                <Grid item xs={12} md={3} className={classes.card}>
                                     <MediaCard item={item} setOpen={setOpen}/>
                                 </Grid>
                        )
@@ -489,38 +492,36 @@ export default function Home() {
                     
                   
                   </Grid>
-                 </div>
+                 {/* </div> */}
             </div>
             <div className={classes.partner} id="contact">
-            <div style={{height:"450px",backgroundColor:"#300000",color:"white"}}>
+            <div style={{height:"auto",backgroundColor:"#300000",color:"white"}}>
               <h3 style={{textAlign:"center",paddingTop:"20px",fontFamily:"Cursive"}}>Our Client Partners</h3><br/>
               <Grid container >
-                    <Grid item xs={6} style={{borderRight:"1px solid white"}}>
+                    <Grid item xs={12}  style={{borderRight:"1px solid white"}}>
                         <h4 style={{textAlign:"center",paddingTop:"30px",fontFamily:"Cursive"}}>Personal Loan</h4>
-                        <div className={classes.imgcontainer}>
+                        <Grid className={classes.imgcontainer}>
                            <img src="/axis.png" alt="Axis Bank" width="200px" height="50px"  className={classes.img} style={{backgroundColor:"white"}}/>
                            <img src="/icici.png" alt="ICICI Bank" width="200px" height="50px"  className={classes.img} style={{backgroundColor:"white"}}/>
-                        </div>
-                        <div className={classes.imgcontainer}>
-                        <img src="/hdfc.png" alt="HDFC Bank"  width="200px" height="50px" className={classes.img} style={{backgroundColor:"white",marginLeft:"150px"}}/>
-                      
-                        </div>
+                           <img src="/hdfc.png" alt="HDFC Bank"  width="200px" height="50px" className={classes.img} style={{backgroundColor:"white"}}/>
+                        </Grid>
+                       
                     </Grid>
                
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <h4 style={{textAlign:"center",paddingTop:"30px",fontFamily:"Cursive"}}>Home Loan</h4>
-                        <div className={classes.imgcontainer}>
+                        <Grid className={classes.imgcontainer}>
                            <img src="/sbi.png" alt="State Bank" width="200px" height="50px" className={classes.img} style={{backgroundColor:"white"}}/>
                            <img src="/pnb.jpg" alt="Punjab National Bank" width="200px" height="50px" className={classes.img} style={{backgroundColor:"white"}}/>
-                        </div>
+                        </Grid>
                     </Grid>
               </Grid>
             </div>
             </div>
             <div className={classes.about} id="about">
-            <div style={{height:"300px",backgroundColor:"#142F3A",color:"white"}}>
+            <div style={{height:"auto",backgroundColor:"#142F3A",color:"white"}}>
                 <Grid container >
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                        <div style={{margin:"40px"}}>
                           <h4>About Us:</h4>
                           <p>
@@ -532,13 +533,14 @@ export default function Home() {
                           </p>
                        </div>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                        <div style={{margin:"40px"}}>
                           <h4>Contact:</h4>
-                          <p>Phone: 9743700072
-                          <span style={{marginLeft:"120px"}}>Email: Random@gmail.com</span><br/>
+                          <Grid md={6} xs={12}>Phone: 9743700072</Grid>
+                          <Grid md={6} xs={12}>Email: Random@gmail.com</Grid>
+                          <Grid>
                           <br/> Address:<br/> 02-04 ,Main Road,<br/>opp patalamma Temple,<br/> Majestic ,Banglore.
-                          </p>
+                          </Grid>
                           
                        </div>
                     </Grid>

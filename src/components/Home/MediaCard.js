@@ -7,10 +7,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    // maxwidth: 340,
+    // width:"90%",
+    minWidth:"auto"
   },
   media: {
     height: 200,
@@ -21,7 +24,8 @@ export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Grid>
+    <Card  className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -46,5 +50,6 @@ export default function MediaCard(props) {
         </Button>:<span></span>}
       </CardActions>
     </Card>
+    </Grid>
   );
 }

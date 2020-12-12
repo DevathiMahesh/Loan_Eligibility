@@ -16,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Divider from '@material-ui/core/Divider';
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -114,10 +115,10 @@ export default function Home() {
         mobile:"",
         email:"",
         company:"",
-        salary:"",
-        loantype:"",
-        expenses:"",
-        loanamount:""
+        monthly_salary:"",
+        loan_type:"",
+        monthly_expenses:""
+     
       }
     )
     const [user,setUser] = React.useState(
@@ -126,30 +127,40 @@ export default function Home() {
         mobile:"",
         email:"",
         company:"",
-        salary:0,
-        loantype:"Select Loan Type",
-        expenses:0,
-        loanamount:0,
-        eligibleamount:0
+        monthly_salary:0,
+        loan_type:"Select Loan Type",
+        monthly_expenses:0,
+        eligibility_amount:0
       }
     )
-    const login = ()=>{
+    const login = async()=>{
     
       console.log(user)
       showLoader(true);
+      await axios.post("https://my-project511.herokuapp.com/add-user/",user).then(
+        (response)=>{
+          console.log("User Data captured successfully",response.data);
+          setShowSnack(true);
+        }
+      ).catch(
+        (error)=>{
+          console.log("Unable to save user data");
+        }
+      )
+
       setTimeout(()=>{
         showLoader(false);
-        setShowSnack(true);
+       
         setUser( {
           name:"",
           mobile:"",
           email:"",
           company:"",
-          salary:0,
-          loantype:"Select Loan Type",
-          expenses:0,
+          monthly_salary:0,
+          loan_type:"Select Loan Type",
+          monthly_expenses:0,
           loanamount:0,
-          eligibleamount:0,
+          eligibility_amount:0,
           location:""
         });
         setErrors(
@@ -158,21 +169,21 @@ export default function Home() {
             mobile:"",
             email:"",
             company:"",
-            salary:"",
-            loantype:"",
-            expenses:"",
+            monthly_salary:"",
+            loan_type:"",
+            monthly_expenses:"",
             loanamount:"",
             location:""
           }
         )
       },2000);
-      // window.location.reload();
+     
     }
     const dummy = ()=>{
 
     }
     const validate = ()=>{
-       if(user.name==="" || user.mobile==="" || user.email==="" || user.loantype==="Select Loan Type" || user.company==="")
+       if(user.name==="" || user.mobile==="" || user.email==="" || user.loan_type==="Select Loan Type" || user.company==="")
         return false 
       return true
     }
@@ -290,7 +301,7 @@ export default function Home() {
                           required
                           id="outlined-required"
                           label="Location"
-                          value={user.company}
+                          value={user.location}
                           onChange={(event)=>setUser({...user,location:event.target.value})}
                           className={classes.textField}
                           helperText={errors.location}
@@ -304,8 +315,8 @@ export default function Home() {
                           <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
-                            value={user.loantype}
-                            onChange={(event)=>setUser({...user,loantype:event.target.value})}
+                            value={user.loan_type}
+                            onChange={(event)=>setUser({...user,loan_type:event.target.value})}
                             label="Loan Type"
                             size="small"
                             native
@@ -316,7 +327,7 @@ export default function Home() {
                             {/* <MenuItem value="">
                               <em>None</em> */}
                             {/* </MenuItem> */}
-                            <option value={"loantype"}>Select Loan Type</option>
+                            <option value={"loan_type"}>Select Loan Type</option>
                             <option value={"Personal"}>Personal Loan</option>
                             <option value={"Home"}>Home Loan</option>
                          
@@ -357,8 +368,8 @@ export default function Home() {
                                   <Select
                                     labelId="demo-simple-select-outlined-label"
                                     id="demo-simple-select-outlined"
-                                    value={user.loantype}
-                                    onChange={(event)=>setUser({...user,loantype:event.target.value})}
+                                    value={user.loan_type}
+                                    onChange={(event)=>setUser({...user,loan_type:event.target.value})}
                                     label="Loan Type"
                                     size="small"
                                     native
@@ -368,7 +379,7 @@ export default function Home() {
                                     {/* <MenuItem value="">
                                       <em>None</em> */}
                                     {/* </MenuItem> */}
-                                    <option value={"loantype"}>Select Loan Type</option>
+                                    <option value={"loan_type"}>Select Loan Type</option>
                                     <option value={"Personal"}>Personal Loan</option>
                                     <option value={"Home"}>Home Loan</option>
                                   
@@ -393,9 +404,9 @@ export default function Home() {
                                         label="Net Salary Per Month"
                                         type="number"
                                         onChange={(event)=>{
-                                          let eligible = (event.target.value - user.expenses)*20;
+                                          let eligible = (event.target.value - user.monthly_expenses)*20;
                                           eligible = eligible>0?eligible:0;
-                                          setUser({...user,salary:event.target.value,eligibleamount:eligible});
+                                          setUser({...user,monthly_salary:event.target.value,eligibility_amount:eligible});
                                           // let temp = eligible<user.loanamount;
                                           // if(temp)
                                           //   setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
@@ -405,8 +416,8 @@ export default function Home() {
                                          
                                         }
                                         className={classes.textField}
-                                        helperText={errors.salary}
-                                        error={errors.salary?true:false}
+                                        helperText={errors.monthly_salary}
+                                        error={errors.monthly_salary?true:false}
                                         variant="outlined"
                                         size="small"
                                       />
@@ -416,9 +427,9 @@ export default function Home() {
                                         label="Expenses Per Month"
                                         type="number"
                                         onChange={(event)=>{
-                                          let eligible = (user.salary - event.target.value)*20;
+                                          let eligible = (user.monthly_salary - event.target.value)*20;
                                           eligible = eligible>0?eligible:0;
-                                          setUser({...user,expenses:event.target.value,eligibleamount:eligible})
+                                          setUser({...user,monthly_expenses:event.target.value,eligibility_amount:eligible})
                                           // let temp = eligible<user.loanamount;
                                           // if(temp)
                                           //   setErrors({...errors,loanamount:"Loan amount cannot be greater than "+eligible})
@@ -427,18 +438,18 @@ export default function Home() {
                                           }
                                         }
                                         className={classes.textField}
-                                        helperText={errors.expenses}
-                                        error={errors.expenses?true:false}
+                                        helperText={errors.monthly_expenses}
+                                        error={errors.monthly_expenses?true:false}
                                         variant="outlined"
                                         size="small"
                                       />
                                       <br/>
-                                      <h4 style={{color:"green"}}>You are eligible for Rs.{user.eligibleamount} </h4>
+                                      <h4 style={{color:"green"}}>You are eligible for Rs.{user.eligibility_amount} </h4>
                                       <Button variant="outlined" color="secondary" onClick={()=>setOpen(false)} className={classes.mbutton}>
                                           Cancel
                                       </Button>
                                       <Button variant="outlined" color="secondary" 
-                                      disabled={user.eligibleamount<user.loanamount}
+                                      disabled={user.eligibility_amount<user.loanamount}
                                       onClick={()=>{
                                           setOpen(false);
                                             login();

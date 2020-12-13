@@ -188,6 +188,26 @@ export default function Home() {
     const validate = ()=>{
        if(user.name==="" || user.mobile==="" || user.email==="" || user.loan_type==="Select Loan Type" || user.company==="")
         return false 
+      if(user.mobile.length!==10)
+      {
+        setErrors({...errors,mobile:"Mobile number should be 10 digits"});
+        return false
+      }
+      else
+      {
+        setErrors({...errors,mobile:""})
+      }
+      let rgx =  /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+      if(!rgx.test(user.email))
+      {
+        setErrors({...errors,email:"Invalid Email Format"});
+        return false
+      }
+      else
+      {
+        console.log("inside email check")
+        setErrors({...errors,email:""})
+      }
       return true
     }
 
@@ -201,11 +221,11 @@ export default function Home() {
           alttext: "All types of Loans"
       },
       {
-          src: "/agree.jpg",
+          src: "/bloan.jpg",
           alttext: "Agreement"
     },
     {
-      src: "/allloan.jpg",
+      src: "/hloan.jpg",
       alttext: "All loans"
     }
   ];
@@ -272,7 +292,7 @@ export default function Home() {
                           helperText={errors.mobile}
                           error={errors.mobile?true:false}
                           variant="outlined"
-                          type="tel"
+                          type="number"
                           size="small"
                         />
                           <TextField
@@ -284,7 +304,7 @@ export default function Home() {
                           className={classes.textField}
                           helperText={errors.email}
                           error={errors.email?true:false}
-                          type="email"
+                          type="text"
                           variant="outlined"
                           size="small"
                         />

@@ -37,7 +37,7 @@ export default function Navbarcomp()
                 <Toolbar className={classes.navstyles}>
                 
                     <Typography variant="h6"   className={classes.title}>
-                       Pothani Infotech Solutions
+                       Pothani Solutions
                     </Typography>
                     <span className={classes.toolbarButtons}>
                         <a href="#home" className={classes.toolbarButtons}>

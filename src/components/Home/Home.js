@@ -131,7 +131,7 @@ export default function Home() {
         email:"",
         company:"",
         monthly_salary:0,
-        loan_type:"Select Loan Type",
+        loan_type:"loan_type",
         monthly_expenses:0,
         eligibility_amount:0
       }
@@ -153,41 +153,55 @@ export default function Home() {
 
       setTimeout(()=>{
         showLoader(false);
-       
-        setUser( {
+        resetFields();
+      
+      },2000);
+     
+    }
+    const resetFields = ()=>{
+      setUser( {
+        name:"",
+        mobile:"",
+        email:"",
+        company:"",
+        monthly_salary:0,
+        loan_type:"loan_type",
+        monthly_expenses:0,
+        loanamount:0,
+        eligibility_amount:0,
+        location:""
+      });
+      setErrors(
+        {
           name:"",
           mobile:"",
           email:"",
           company:"",
-          monthly_salary:0,
-          loan_type:"Select Loan Type",
-          monthly_expenses:0,
-          loanamount:0,
-          eligibility_amount:0,
+          monthly_salary:"",
+          loan_type:"",
+          monthly_expenses:"",
+          loanamount:"",
           location:""
-        });
-        setErrors(
-          {
-            name:"",
-            mobile:"",
-            email:"",
-            company:"",
-            monthly_salary:"",
-            loan_type:"",
-            monthly_expenses:"",
-            loanamount:"",
-            location:""
-          }
-        )
-      },2000);
-     
+        }
+      )
     }
     const dummy = ()=>{
 
     }
     const validate = ()=>{
-       if(user.name==="" || user.mobile==="" || user.email==="" || user.loan_type==="Select Loan Type" || user.company==="")
+       if(user.name==="" || user.mobile==="" || user.email==="" || user.company==="")
         return false 
+      if(user.loan_type=="loan_type" || user.loan_type==="")
+      {
+        setErrors({
+          ...errors,loan_type:"Please select Loan type"
+        });
+        return false;
+      }
+      else
+      {
+        setErrors({...errors,loan_type:""});
+      }
       if(user.mobile.length!==10)
       {
         setErrors({...errors,mobile:"Mobile number should be 10 digits"});
@@ -197,7 +211,7 @@ export default function Home() {
       {
         setErrors({...errors,mobile:""})
       }
-      let rgx =  /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+      let rgx =  /^[\w\.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
       if(!rgx.test(user.email))
       {
         setErrors({...errors,email:"Invalid Email Format"});
@@ -339,11 +353,15 @@ export default function Home() {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             value={user.loan_type}
-                            onChange={(event)=>setUser({...user,loan_type:event.target.value})}
+                            onChange={(event)=>{
+                              setUser({...user,loan_type:event.target.value},()=>validate());
+                            
+                            }}
                             label="Loan Type"
                             size="small"
                             native
-                            
+                      
+                            error={user.loan_type==="loan_type"?true:false}
                             required
 
                           >
@@ -355,7 +373,9 @@ export default function Home() {
                             <option value={"Home"}>Home Loan</option>
                          
                           </Select>
+                        
                      </FormControl>
+                    {user.loan_type==="loan_type"? <p style={{color:"red"}}>{errors.loan_type}</p>:null}
                         <Button variant="contained" color="primary"  type="submit"
                         
                          onClick={()=>{
@@ -396,6 +416,7 @@ export default function Home() {
                                     label="Loan Type"
                                     size="small"
                                     native
+                                    autoFocus
                                     required
 
                                   >
@@ -426,6 +447,7 @@ export default function Home() {
                                         id="outlined-required"
                                         label="Net Salary Per Month"
                                         type="number"
+                                        disabled={user.loan_type==="loan_type"}
                                         onChange={(event)=>{
                                           let eligible = (event.target.value - user.monthly_expenses)*20;
                                           eligible = eligible>0?eligible:0;
@@ -449,6 +471,7 @@ export default function Home() {
                                         id="outlined-required"
                                         label="Expenses Per Month"
                                         type="number"
+                                        disabled={user.loan_type==="loan_type"}
                                         onChange={(event)=>{
                                           let eligible = (user.monthly_salary - event.target.value)*20;
                                           eligible = eligible>0?eligible:0;
@@ -468,11 +491,11 @@ export default function Home() {
                                       />
                                       <br/>
                                       <h4 style={{color:"green"}}>You are eligible for Rs.{user.eligibility_amount} </h4>
-                                      <Button variant="outlined" color="secondary" onClick={()=>setOpen(false)} className={classes.mbutton}>
+                                      <Button variant="outlined" color="secondary" onClick={()=>{setOpen(false);resetFields();}} className={classes.mbutton}>
                                           Cancel
                                       </Button>
                                       <Button variant="outlined" color="secondary" 
-                                      disabled={user.eligibility_amount<user.loanamount}
+                                      disabled={user.eligibility_amount===0 || user.loan_type==="loan_type"}
                                       onClick={()=>{
                                           setOpen(false);
                                             login();

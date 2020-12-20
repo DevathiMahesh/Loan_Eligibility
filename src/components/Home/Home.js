@@ -561,7 +561,7 @@ export default function Home() {
                           <Grid md={6} xs={12}>Phone: 9743700072</Grid>
                           <Grid md={6} xs={12}>Email: Random@gmail.com</Grid>
                           <Grid>
-                          <br/> Address:<br/> 02-04 ,Main Road,<br/>opp patalamma Temple,<br/> Majestic ,Banglore.
+                          <br/> Address:<br/> Old Madras Road,<br/>Near Bayappanahalli,<br/>Banglore.<br/>Pincode: 560038
                           </Grid>
                           
                        </div>

@@ -140,7 +140,7 @@ export default function Home() {
     
       console.log(user)
       showLoader(true);
-      await axios.post("https://my-project511.herokuapp.com/add-user/",user).then(
+      await axios.post("https://pothani-admin.herokuapp.com/add-user/",user).then(
         (response)=>{
           console.log("User Data captured successfully",response.data);
           setShowSnack(true);

@@ -591,7 +591,7 @@ export default function Home() {
                        <div style={{margin:"40px"}}>
                           <h4>Contact:</h4>
                           <Grid md={6} xs={12}>Phone: {process.env.REACT_APP_MOBILENUMBER}</Grid>
-                          <Grid md={6} xs={12}>Email: Random@gmail.com</Grid>
+                          <Grid md={6} xs={12}>Email:{process.env.REACT_APP_EMAIL} </Grid>
                           <Grid>
                           <br/> Address:<br/> {process.env.REACT_APP_ROAD},<br/>{process.env.REACT_APP_LOCATION},<br/>
                           {process.env.REACT_APP_CITY}<br/>Pincode: {process.env.REACT_APP_PINCODE}

@@ -112,6 +112,7 @@ export default function Home() {
     const [showSnack,setShowSnack] = React.useState(false);
     const vertical = "Top";
     const horizontal = "Right";
+    const [form,setForm] = React.useState(true);
     const [errors,setErrors] = React.useState(
       {
         name:"",
@@ -301,12 +302,19 @@ export default function Home() {
                           id="outlined-required"
                           label="Mobile Number"
                           value={user.mobile}
-                          onChange={(event)=>setUser({...user,mobile:event.target.value})}
+                          onChange={(event)=>{
+                            if(event.target.value.length>10)
+                              setErrors({...errors,mobile:"Mobile number should not exceed 10 digits."})
+                            else
+                              setErrors({...errors,mobile:""})
+                            setUser({...user,mobile:event.target.value})
+                          }}
                           className={classes.textField}
                           helperText={errors.mobile}
                           error={errors.mobile?true:false}
                           variant="outlined"
                           type="number"
+                          
                           size="small"
                         />
                           <TextField
@@ -387,7 +395,7 @@ export default function Home() {
                         </Button>
                         </form>
                         <b>If any Query Please Call to <span style={{color:"blue"}}>9743700072</span></b><br/>
-                        <b>For More Details <a href="#" onClick={()=>setOpen(true)}>Check Eligibilty Calculator</a></b>
+                        <b>For More Details <a href="#" onClick={()=>{setForm(false);setOpen(true);}}>Check Eligibilty Calculator</a></b>
                         <Modal
                             aria-labelledby="transition-modal-title"
                             aria-describedby="transition-modal-description"
@@ -491,11 +499,11 @@ export default function Home() {
                                       />
                                       <br/>
                                       <h4 style={{color:"green"}}>You are eligible for Rs.{user.eligibility_amount} </h4>
-                                      <Button variant="outlined" color="secondary" onClick={()=>{setOpen(false);resetFields();}} className={classes.mbutton}>
+                                      <Button variant="outlined" color="secondary" onClick={()=>{setOpen(false);setForm(true);resetFields();}} className={classes.mbutton}>
                                           Cancel
                                       </Button>
                                       <Button variant="outlined" color="secondary" 
-                                      disabled={user.eligibility_amount===0 || user.loan_type==="loan_type"}
+                                      disabled={user.eligibility_amount===0 || user.loan_type==="loan_type" || form===false}
                                       onClick={()=>{
                                           setOpen(false);
                                             login();
@@ -505,6 +513,7 @@ export default function Home() {
                                       </Button>
                                       </form>
                                 </div>
+                                {form===false?<p style={{color:"red",textAlign:"center"}}>Note: Please Fill the Form in Main page to Submit a request.</p>:null}
                             </div>
                           </Fade>
                         </Modal>
@@ -527,7 +536,7 @@ export default function Home() {
                      (item,i)=>{
                        return(
                                 <Grid item xs={12} md={3} className={classes.card}>
-                                    <MediaCard item={item} setOpen={setOpen}/>
+                                    <MediaCard item={item} setOpen={setOpen} setForm={setForm}/>
                                 </Grid>
                        )
                      }

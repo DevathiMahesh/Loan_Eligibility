@@ -590,7 +590,7 @@ export default function Home() {
                     <Grid item xs={12} md={6}>
                        <div style={{margin:"40px"}}>
                           <h4>Contact:</h4>
-                          <Grid md={6} xs={12}>Phone: 9743700072</Grid>
+                          <Grid md={6} xs={12}>Phone: {process.env.REACT_APP_MOBILENUMBER}</Grid>
                           <Grid md={6} xs={12}>Email: Random@gmail.com</Grid>
                           <Grid>
                           <br/> Address:<br/> Old Madras Road,<br/>Near Bayappanahalli,<br/>Banglore.<br/>Pincode: 560038

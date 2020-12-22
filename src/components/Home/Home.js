@@ -369,7 +369,7 @@ export default function Home() {
                             size="small"
                             native
                       
-                            error={user.loan_type==="loan_type"?true:false}
+                           
                             required
 
                           >

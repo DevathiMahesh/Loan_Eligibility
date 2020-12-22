@@ -394,7 +394,7 @@ export default function Home() {
                                 Proceed
                         </Button>
                         </form>
-                        <b>If any Query Please Call to <span style={{color:"blue"}}>9743700072</span></b><br/>
+                        <b>If any Query Please Call to <span style={{color:"blue"}}>{process.env.REACT_APP_MOBILENUMBER}</span></b><br/>
                         <b>For More Details <a href="#" onClick={()=>{setForm(false);setOpen(true);}}>Check Eligibilty Calculator</a></b>
                         <Modal
                             aria-labelledby="transition-modal-title"

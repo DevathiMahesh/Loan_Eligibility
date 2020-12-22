@@ -41,7 +41,7 @@ export default function MediaCard(props) {
             {props.item.title!=="Home Loan"?<><br/><br/><hr/></>:null}
             <br/><br/>
             <b>How to get {props.item.title}?</b>
-            <p> Call to our Representative for immediate Assistance. +91 9743700072</p>
+            <p> Call to our Representative for immediate Assistance. +91 {process.env.REACT_APP_MOBILENUMBER}</p>
           </Typography>
         </CardContent>
       </CardActionArea>

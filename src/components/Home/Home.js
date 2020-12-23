@@ -577,7 +577,7 @@ export default function Home() {
                        <div style={{margin:"40px"}}>
                           <h4>About Company Profile:</h4>
                           <br/>
-                          <img src="/pothani.png" alt="Pothani infotech solutions"/> 
+                          <img src="/agree.jpg" alt="Pothani infotech solutions"/> 
                           <br/><br/>
                           <p>
                           Pothani Solutions isfor small enterpreneurs. We are a one stop service provider that offers facilities such

@@ -522,7 +522,7 @@ export default function Home() {
                       <Snackbar open={showSnack} autoHideDuration={6000}  anchorOrigin={{ vertical, horizontal }} onClose={()=>setShowSnack(false)}>
                           <Alert onClose={()=>setShowSnack(false)} severity="success">
                             Your Application is Submitted Successfully .<br/>
-                            Our Team will get back to you in 24 hours.
+                            We will get back to you immediately.
                           </Alert>
                      </Snackbar>
              
@@ -599,7 +599,7 @@ export default function Home() {
                           
                        </div>
                     </Grid>
-                    <p style={{align:"center",paddingLeft:"45%"}}>copyright@2020</p>
+                 
                </Grid>
             </div>
             </div>
